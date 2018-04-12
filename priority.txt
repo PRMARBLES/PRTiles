@@ -1,0 +1,46 @@
+#include<stdio.h> 
+#include<conio.h> 
+main()
+{ 
+int pr[30],bt[30],prio[30], wt[30],tat[30],j, k, n, temp; 
+float wtavg, tatavg; 
+
+printf("Enter processes --- "); 
+scanf("%d",&n); 
+for(j=0;j<n;j++) 
+{ 
+pr[j] = j; 
+printf("Enter the Burst Time & Priority of Process %d --- ",j); 
+scanf("%d %d",&bt[j], &prio[j]); 
+} 
+for(j=0;j<n;j++) 
+for(k=j+1;k<n;k++) 
+if(prio[j] > prio[k]) 
+{ 
+temp=pr[j]; 
+pr[j]=pr[k]; 
+pr[k]=temp; 
+temp=bt[j]; 
+bt[j]=bt[k]; 
+bt[k]=temp; 
+temp=prio[j]; 
+prio[j]=prio[k]; 
+prio[k]=temp; 
+} 
+wtavg = wt[0] = 0; 
+tatavg = tat[0] = bt[0];
+for(j=1;j<n;j++) 
+{ 
+wt[j] = wt[j-1] + bt[j-1]; 
+tat[j] = tat[j-1] + bt[j]; 
+wtavg = wtavg + wt[j]; 
+tatavg = tatavg + tat[j]; 
+} 
+printf("\n PROCESS\t \t PRIORITY\t BURSTTIME\t WAITINGTIME\t TURNAROUNDTIME"); 
+for(j=0;j<n;j++) 
+{
+printf("\n%d \t\t %d \t\t  %d \t\t  %d  \t\t  %d ",pr[j],prio[j],bt[j],wt[j],tat[j]); 
+printf("\n average waiting time--%f",wtavg/n); 
+printf("\n average turnaround time--%f",tatavg/n); 
+}getch(); 
+}

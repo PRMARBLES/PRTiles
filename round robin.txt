@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<conio.h>
+main() 
+{ int j,k,n,bt[30],wa[30],ta[30],t,ct[30],max; 
+float awt=0,att=0,temp=0; 
+
+printf("Enter the no of processes -- "); 
+scanf("%d",&n); 
+for(j=0;j<n;j++)
+ { 
+printf("\nEnter Burst Time process %d ", j+1);
+scanf("%d",&bt[j]); 
+ct[j]=bt[j];
+ }
+printf("\nEnter the size of time slice ");
+scanf("%d",&t); 
+max=bt[0]; 
+for(j=1;j<n;j++) 
+if(max<bt[j]) 
+max=bt[j]; 
+for(k=0;k<(max/t)+1;k++) 
+for(j=0;j<n;j++) 
+if(bt[j]!=0) 
+if(bt[j]<=t) 
+{ 
+ta[j]=temp+bt[j]; 
+temp=temp+bt[j]; 
+bt[j]=0; 
+} 
+else { 
+bt[j]=bt[j]-t; 
+temp=temp+t; 
+} 
+for(j=0;j<n;j++) 
+{ 
+wa[j]=ta[j]-ct[j]; 
+att+=ta[j];
+awt+=wa[j]; 
+} 
+printf("\n Average Turnaround time--%f",att/n); 
+printf("\nAverage Waiting time--%f ",awt/n); 
+printf("\n\tPROCESS\tBURSTTIME \tWAITINGTIME\tTURNAROUNDTIME\n"); 
+for(j=0;j<n;j++) 
+printf("\t%d \t %d \t\t %d \t\t %d \n",j+1,ct[j],wa[j],ta[j]); 
+
+getch();
+}
